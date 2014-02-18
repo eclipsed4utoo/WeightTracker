@@ -45,7 +45,7 @@
             android:id="@+id/WeightTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/LeftArmTextBox" />
+            android:nextFocusDown="@+id/LeftArmTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -69,7 +69,7 @@
             android:id="@+id/LeftArmTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/RightArmTextBox" />
+            android:nextFocusDown="@+id/RightArmTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -93,7 +93,7 @@
             android:id="@+id/RightArmTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/ChestTextBox" />
+            android:nextFocusDown="@+id/ChestTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -117,7 +117,7 @@
             android:id="@+id/ChestTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/WaistTextBox" />
+            android:nextFocusDown="@+id/WaistTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -141,7 +141,7 @@
             android:id="@+id/WaistTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/AbsTextBox" />
+            android:nextFocusDown="@+id/AbsTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -165,7 +165,7 @@
             android:id="@+id/AbsTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/HipsTextBox" />
+            android:nextFocusDown="@+id/HipsTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -189,7 +189,7 @@
             android:id="@+id/HipsTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/LeftThighTextBox" />
+            android:nextFocusDown="@+id/LeftThighTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -213,7 +213,7 @@
             android:id="@+id/LeftThighTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/RightThighTextBox" />
+            android:nextFocusDown="@+id/RightThighTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -237,7 +237,7 @@
             android:id="@+id/RightThighTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/LeftCalfTextBox" />
+            android:nextFocusDown="@+id/LeftCalfTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -261,7 +261,7 @@
             android:id="@+id/LeftCalfTextBox"
             android:layout_marginLeft="3dp"
             android:singleLine="true"
-            android:nextFocusDown="@id/RightCalfTextBox" />
+            android:nextFocusDown="@+id/RightCalfTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

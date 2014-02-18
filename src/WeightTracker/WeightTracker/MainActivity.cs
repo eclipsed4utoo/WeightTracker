@@ -11,8 +11,6 @@ namespace WeightTracker
 	[Activity (Label = "WeightTracker", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
-		int count = 1;
-
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
@@ -25,7 +23,7 @@ namespace WeightTracker
             saveButton.Click += SaveMeasurements;
 		}
 
-        private SaveMeasurementseClick (object sender, EventArgs e)
+		private void SaveMeasurements (object sender, EventArgs e)
         {
             
         }
