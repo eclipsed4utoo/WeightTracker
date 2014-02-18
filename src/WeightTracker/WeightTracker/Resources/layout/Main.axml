@@ -1,14 +1,280 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<Button  
-    android:id="@+id/myButton"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <TextView
+            android:text="Date"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right" />
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/spinner1" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:text="Weight"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/WeightTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
+        <TextView
+            android:text="Left Arm"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/LeftArmTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4">
+        <TextView
+            android:text="Right Arm"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/RightArmTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout5">
+        <TextView
+            android:text="Chest"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/ChestTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout6">
+        <TextView
+            android:text="Waist"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/WeightTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout7">
+        <TextView
+            android:text="Abdominal"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/AbsTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout8">
+        <TextView
+            android:text="Hips"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/HipsTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout9">
+        <TextView
+            android:text="Left Thigh"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/LeftThighTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout10">
+        <TextView
+            android:text="Right Thigh"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/RightThighTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout11">
+        <TextView
+            android:text="Left Calf"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/LeftCalfTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout12">
+        <TextView
+            android:text="Right Calf"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="right"
+            android:layout_marginTop="3dp" />
+        <EditText
+            android:inputType="numberDecimal"
+            android:layout_width="80dp"
+            android:layout_height="25dp"
+            android:id="@+id/RightCalfTextBox"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout13">
+        <Button
+            android:text="Save"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/SaveButton"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
 </LinearLayout>
-
