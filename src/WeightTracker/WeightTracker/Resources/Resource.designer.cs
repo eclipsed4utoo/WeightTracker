@@ -66,6 +66,9 @@ namespace WeightTracker
 			// aapt resource value: 0x7f050009
 			public const int ChestTextBox = 2131034121;
 			
+			// aapt resource value: 0x7f050002
+			public const int Date = 2131034114;
+			
 			// aapt resource value: 0x7f05000f
 			public const int HipsTextBox = 2131034127;
 			
@@ -134,9 +137,6 @@ namespace WeightTracker
 			
 			// aapt resource value: 0x7f050012
 			public const int linearLayout9 = 2131034130;
-			
-			// aapt resource value: 0x7f050002
-			public const int spinner1 = 2131034114;
 			
 			// aapt resource value: 0x7f050001
 			public const int textView1 = 2131034113;

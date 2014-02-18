@@ -18,10 +18,10 @@
             android:gravity="right"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp" />
-        <Spinner
+        <DatePicker
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:id="@+id/spinner1" />
+            android:id="@+id/Date" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
