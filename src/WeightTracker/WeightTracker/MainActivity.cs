@@ -21,7 +21,14 @@ namespace WeightTracker
 			SetContentView (Resource.Layout.Main);
 			
             this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
+            var saveButton = FindViewById<Button>(Resource.Id.SaveButton);
+            saveButton.Click += SaveMeasurements;
 		}
+
+        private SaveMeasurementseClick (object sender, EventArgs e)
+        {
+            
+        }
 	}
 }
 

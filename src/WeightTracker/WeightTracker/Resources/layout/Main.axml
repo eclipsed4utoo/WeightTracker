@@ -15,7 +15,9 @@
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:id="@+id/textView1"
-            android:gravity="right" />
+            android:gravity="right"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp" />
         <Spinner
             android:layout_width="150dp"
             android:layout_height="match_parent"
@@ -41,7 +43,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/WeightTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/LeftArmTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -63,7 +67,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/LeftArmTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/RightArmTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -85,7 +91,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/RightArmTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/ChestTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -107,7 +115,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/ChestTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/WaistTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -128,8 +138,10 @@
             android:inputType="numberDecimal"
             android:layout_width="80dp"
             android:layout_height="25dp"
-            android:id="@+id/WeightTextBox"
-            android:layout_marginLeft="3dp" />
+            android:id="@+id/WaistTextBox"
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/AbsTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -151,7 +163,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/AbsTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/HipsTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -173,7 +187,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/HipsTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/LeftThighTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -195,7 +211,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/LeftThighTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/RightThighTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -217,7 +235,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/RightThighTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/LeftCalfTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -239,7 +259,9 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/LeftCalfTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true"
+            android:nextFocusDown="@id/RightCalfTextBox" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -260,7 +282,8 @@
             android:layout_width="80dp"
             android:layout_height="25dp"
             android:id="@+id/RightCalfTextBox"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:singleLine="true" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
