@@ -53,6 +53,7 @@
     <Compile Include="SQLite.cs" />
     <Compile Include="BodyMeasurements.cs" />
     <Compile Include="Utilities.cs" />
+    <Compile Include="Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -62,7 +63,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\layout\Main.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\layout\" />
+  </ItemGroup>
 </Project>

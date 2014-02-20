@@ -9,19 +9,28 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1">
+        android:id="@+id/linearLayout1"
+        android:layout_marginBottom="15dp">
         <TextView
             android:text="Date"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/date_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
-        <DatePicker
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:id="@+id/Date" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size"
+            android:layout_gravity="center" />
+        <TextView
+            android:inputType="date"
+            android:layout_width="@dimen/date_picker_width"
+            android:layout_height="@dimen/date_picker_height"
+            android:id="@+id/Date"
+            android:layout_marginLeft="15dp"
+            android:textSize="@dimen/header_label_text_size"
+            android:text="02/14/2014"
+            android:gravity="center_vertical"
+            android:textColor="#ff0f72e1" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -32,20 +41,31 @@
         android:id="@+id/linearLayout2">
         <TextView
             android:text="Weight"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/WeightTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/LeftArmTextBox" />
+            android:nextFocusDown="@+id/LeftArmTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/WeightChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -56,20 +76,31 @@
         android:id="@+id/linearLayout3">
         <TextView
             android:text="Left Arm"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/LeftArmTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/RightArmTextBox" />
+            android:nextFocusDown="@+id/RightArmTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/LeftArmChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -80,20 +111,31 @@
         android:id="@+id/linearLayout4">
         <TextView
             android:text="Right Arm"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/RightArmTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/ChestTextBox" />
+            android:nextFocusDown="@+id/ChestTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/RightArmChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -104,20 +146,31 @@
         android:id="@+id/linearLayout5">
         <TextView
             android:text="Chest"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/ChestTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/WaistTextBox" />
+            android:nextFocusDown="@+id/WaistTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/ChestChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -128,20 +181,31 @@
         android:id="@+id/linearLayout6">
         <TextView
             android:text="Waist"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/WaistTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/AbsTextBox" />
+            android:nextFocusDown="@+id/AbsTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/WaistChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -152,20 +216,31 @@
         android:id="@+id/linearLayout7">
         <TextView
             android:text="Abdominal"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/AbsTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/HipsTextBox" />
+            android:nextFocusDown="@+id/HipsTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/AbsChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -176,20 +251,31 @@
         android:id="@+id/linearLayout8">
         <TextView
             android:text="Hips"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/HipsTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/LeftThighTextBox" />
+            android:nextFocusDown="@+id/LeftThighTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/HipsChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -200,20 +286,31 @@
         android:id="@+id/linearLayout9">
         <TextView
             android:text="Left Thigh"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/LeftThighTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/RightThighTextBox" />
+            android:nextFocusDown="@+id/RightThighTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/LeftThighChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -224,20 +321,31 @@
         android:id="@+id/linearLayout10">
         <TextView
             android:text="Right Thigh"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/RightThighTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/LeftCalfTextBox" />
+            android:nextFocusDown="@+id/LeftCalfTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/RightThighChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -248,20 +356,31 @@
         android:id="@+id/linearLayout11">
         <TextView
             android:text="Left Calf"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp" />
+            android:layout_marginBottom="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/LeftCalfTextBox"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
-            android:nextFocusDown="@+id/RightCalfTextBox" />
+            android:nextFocusDown="@+id/RightCalfTextBox"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/LeftCalfChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -272,18 +391,29 @@
         android:id="@+id/linearLayout12">
         <TextView
             android:text="Right Calf"
-            android:layout_width="120dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/header_label_width"
+            android:layout_height="@dimen/header_label_height"
             android:id="@+id/textView1"
             android:gravity="right"
-            android:layout_marginTop="3dp" />
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
         <EditText
             android:inputType="numberDecimal"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="@dimen/edit_text_width"
+            android:layout_height="@dimen/edit_text_height"
             android:id="@+id/RightCalfTextBox"
-            android:layout_marginLeft="3dp"
-            android:singleLine="true" />
+            android:layout_marginLeft="@dimen/edit_text_left_margin"
+            android:singleLine="true"
+            android:textSize="@dimen/edit_text_text_size"
+            android:layout_gravity="bottom" />
+        <TextView
+            android:text="0"
+            android:layout_width="45dp"
+            android:layout_height="@dimen/header_label_height"
+            android:id="@+id/RightCalfChange"
+            android:layout_marginLeft="@dimen/amount_changed_left_margin"
+            android:layout_marginTop="3dp"
+            android:textSize="@dimen/header_label_text_size" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

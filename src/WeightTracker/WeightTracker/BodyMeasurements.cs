@@ -32,6 +32,18 @@ namespace WeightTracker
 				conn.Insert (this);
 			}
 		}
+
+		public static BodyMeasurements GetLastMeasurement()
+		{
+			BodyMeasurements bod = null;
+
+			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+			{
+				bod = conn.Table<BodyMeasurements> ().OrderByDescending (t => t.Date).FirstOrDefault ();
+			}
+
+			return bod;
+		}
 	}
 }
 
