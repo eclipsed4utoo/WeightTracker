@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using SQLite;
+using System.Collections.Generic;
 
 namespace WeightTracker
 {
-	public class BodyMeasurements
+	public class BodyMeasurements : Java.Lang.Object
 	{
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
@@ -31,6 +33,17 @@ namespace WeightTracker
 			{
 				conn.Insert (this);
 			}
+		}
+
+		public static List<BodyMeasurements> GetAllMeasurements()
+		{
+			List<BodyMeasurements> list = new List<BodyMeasurements> ();
+			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+			{
+				list = conn.Table<BodyMeasurements> ().OrderByDescending (t => t.Date).ToList();
+			}
+
+			return list;
 		}
 
 		public static BodyMeasurements GetLastMeasurement()

@@ -7,12 +7,16 @@ using Android.Widget;
 using Android.OS;
 using Android.Graphics;
 using System.IO;
+using System.Collections.Generic;
 
 namespace WeightTracker
 {
 	[Activity (Label = "WeightTracker", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
+		private ListView _measurementListView = null;
+		private MeasurementAdapter _adapter = null;
+
 		private TextView _dateTextView = null;
 		private EditText _weightTextBox = null;
 		private EditText _leftArmTextBox = null;
@@ -40,6 +44,8 @@ namespace WeightTracker
 
 		private BodyMeasurements _lastMeasurement = null;
 		private DateTime _currentDate = DateTime.Today;
+
+		private List<BodyMeasurements> _bodyMeasurements = null;
 
 		private const int DATE_DIALOG_ID = 0;
 
@@ -95,6 +101,12 @@ namespace WeightTracker
 			_rightCalfTextBox.FocusChange += WeightLostFocus;
 
 			_dateTextView.Click += ShowDatePicker;
+
+			_measurementListView = FindViewById<ListView> (Resource.Id.MeasurementsListView);
+			_bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
+			_adapter = new MeasurementAdapter (this, _bodyMeasurements);
+			_measurementListView.Adapter = _adapter;
+			_adapter.NotifyDataSetChanged ();
 
 			UpdateDateView ();
 		}

@@ -47,14 +47,17 @@ namespace WeightTracker
 			// aapt resource value: 0x7f040007
 			public const int amount_changed_left_margin = 2130968583;
 			
-			// aapt resource value: 0x7f040009
-			public const int date_label_width = 2130968585;
+			// aapt resource value: 0x7f040008
+			public const int amount_changed_width = 2130968584;
 			
 			// aapt resource value: 0x7f04000a
-			public const int date_picker_height = 2130968586;
+			public const int date_label_width = 2130968586;
 			
-			// aapt resource value: 0x7f040008
-			public const int date_picker_width = 2130968584;
+			// aapt resource value: 0x7f04000b
+			public const int date_picker_height = 2130968587;
+			
+			// aapt resource value: 0x7f040009
+			public const int date_picker_width = 2130968585;
 			
 			// aapt resource value: 0x7f040003
 			public const int edit_text_height = 2130968579;
@@ -77,6 +80,39 @@ namespace WeightTracker
 			// aapt resource value: 0x7f040002
 			public const int header_label_width = 2130968578;
 			
+			// aapt resource value: 0x7f040010
+			public const int list_view_height = 2130968592;
+			
+			// aapt resource value: 0x7f040011
+			public const int list_view_top_margin = 2130968593;
+			
+			// aapt resource value: 0x7f040016
+			public const int row_total_change_height = 2130968598;
+			
+			// aapt resource value: 0x7f040015
+			public const int row_total_change_left_margin = 2130968597;
+			
+			// aapt resource value: 0x7f040012
+			public const int row_weight_change_height = 2130968594;
+			
+			// aapt resource value: 0x7f040013
+			public const int row_weight_change_left_margin = 2130968595;
+			
+			// aapt resource value: 0x7f040014
+			public const int row_weight_change_top_margin = 2130968596;
+			
+			// aapt resource value: 0x7f04000e
+			public const int save_button_height = 2130968590;
+			
+			// aapt resource value: 0x7f04000c
+			public const int save_button_left_margin = 2130968588;
+			
+			// aapt resource value: 0x7f04000d
+			public const int save_button_top_margin = 2130968589;
+			
+			// aapt resource value: 0x7f04000f
+			public const int save_button_width = 2130968591;
+			
 			static Dimension()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -92,6 +128,9 @@ namespace WeightTracker
 			
 			// aapt resource value: 0x7f020000
 			public const int Icon = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int trash = 2130837505;
 			
 			static Drawable()
 			{
@@ -145,6 +184,9 @@ namespace WeightTracker
 			// aapt resource value: 0x7f060017
 			public const int LeftThighTextBox = 2131099671;
 			
+			// aapt resource value: 0x7f060027
+			public const int MeasurementsListView = 2131099687;
+			
 			// aapt resource value: 0x7f06000c
 			public const int RightArmChange = 2131099660;
 			
@@ -162,6 +204,18 @@ namespace WeightTracker
 			
 			// aapt resource value: 0x7f06001a
 			public const int RightThighTextBox = 2131099674;
+			
+			// aapt resource value: 0x7f060029
+			public const int RowDate = 2131099689;
+			
+			// aapt resource value: 0x7f060028
+			public const int RowDeleteButton = 2131099688;
+			
+			// aapt resource value: 0x7f06002b
+			public const int RowTotalChange = 2131099691;
+			
+			// aapt resource value: 0x7f06002c
+			public const int RowWeightChange = 2131099692;
 			
 			// aapt resource value: 0x7f060025
 			public const int SaveButton = 2131099685;
@@ -193,6 +247,9 @@ namespace WeightTracker
 			// aapt resource value: 0x7f060024
 			public const int linearLayout13 = 2131099684;
 			
+			// aapt resource value: 0x7f060026
+			public const int linearLayout14 = 2131099686;
+			
 			// aapt resource value: 0x7f060003
 			public const int linearLayout2 = 2131099651;
 			
@@ -220,6 +277,15 @@ namespace WeightTracker
 			// aapt resource value: 0x7f060001
 			public const int textView1 = 2131099649;
 			
+			// aapt resource value: 0x7f06002d
+			public const int textView2 = 2131099693;
+			
+			// aapt resource value: 0x7f06002a
+			public const int textView3 = 2131099690;
+			
+			// aapt resource value: 0x7f06002e
+			public const int textView5 = 2131099694;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -235,6 +301,9 @@ namespace WeightTracker
 			
 			// aapt resource value: 0x7f030000
 			public const int Main = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int MeasurementRow = 2130903041;
 			
 			static Layout()
 			{
