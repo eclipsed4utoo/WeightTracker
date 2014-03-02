@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
+    <Reference Include="Xamarin.Controls.BarChart.Android">
+      <HintPath>..\Components\barchart-1.1\lib\android\Xamarin.Controls.BarChart.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -55,6 +58,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MeasurementAdapter.cs" />
+    <Compile Include="ChartViewerActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -70,10 +74,18 @@
     <AndroidResource Include="Resources\drawable\trash.png" />
     <AndroidResource Include="Resources\layout\DisplayMeasurement.axml" />
     <AndroidResource Include="Resources\menu\MainMenu.axml" />
+    <AndroidResource Include="Resources\layout\ChartViewer.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\layout\" />
     <Folder Include="Resources\menu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="barchart">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

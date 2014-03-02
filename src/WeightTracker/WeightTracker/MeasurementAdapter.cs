@@ -14,6 +14,13 @@ namespace WeightTracker
 		private List<BodyMeasurements> _measurements = null;
         private Context _context = null;
 
+        public event EventHandler MeasurementDeleted;
+        private void OnMeasurementDeleted()
+        {
+            if (MeasurementDeleted != null)
+                MeasurementDeleted(this, EventArgs.Empty);
+        }
+
 		public MeasurementAdapter (Context context, List<BodyMeasurements> measurements)
 		{
             _context = context;

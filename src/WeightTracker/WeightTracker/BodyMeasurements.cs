@@ -67,6 +67,45 @@ namespace WeightTracker
 
 			return bod;
 		}
+
+        public static Dictionary<string, double> GetWeightByDate()
+        {
+            var dict = new Dictionary<string, double>();
+            var data = new List<BodyMeasurements>();
+
+            using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+            {
+                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+            }
+
+            foreach(var d in data)
+            {
+                dict[d.Date.ToString("MM-dd-yyyy")] = d.TotalWeightChange;
+            }
+
+            return dict;
+        }
+
+        public static Dictionary<string, double> GetWeightByMonth()
+        {
+            var dict = new Dictionary<string, double>();
+            var data = new List<BodyMeasurements>();
+
+            using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+            {
+                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+            }
+
+            var monthAndWeight = data.GroupBy(k => k.Date.Month).Select(lg => new { Month = lg.Key, Total = lg.Sum(t => t.TotalWeightChange)});
+
+            foreach(var mw in monthAndWeight)
+            {
+                var monthName = new DateTime(2012, mw.Month, 1).ToString("MMMM");
+                dict[monthName] = mw.Total;
+            }
+
+            return dict;
+        }
 	}
 }
 

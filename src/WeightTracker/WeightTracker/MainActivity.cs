@@ -12,7 +12,7 @@ using Android.Views.InputMethods;
 
 namespace WeightTracker
 {
-	[Activity (Label = "WeightTracker", MainLauncher = true)]
+    [Activity (Label = "Weight Tracker", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
         #region Private Variables
@@ -123,8 +123,21 @@ namespace WeightTracker
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            this.MenuInflater.Inflate(0, menu);
+            this.MenuInflater.Inflate(Resource.Menu.MainMenu, menu);
             return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch(item.ItemId)
+            {
+                case Resource.Id.ActionViewCharts:
+                    Intent intent = new Intent (this, typeof(ChartViewerActivity));
+                    StartActivity(intent);
+                    break;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
         protected override Dialog OnCreateDialog (int id)
@@ -379,9 +392,27 @@ namespace WeightTracker
         private void PopulateMeasurements()
         {
             _bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
+
+            if (_adapter != null)
+            {
+                _adapter.MeasurementDeleted -= MeasurementDeleted;
+                _adapter = null;
+            }
+
             _adapter = new MeasurementAdapter (this, _bodyMeasurements);
+            _adapter.MeasurementDeleted += MeasurementDeleted;
             _measurementListView.Adapter = _adapter;
             _adapter.NotifyDataSetChanged ();
+        }
+
+        private void MeasurementDeleted (object sender, EventArgs e)
+        {
+            ResetPreviousMeasurement();
+        }
+
+        private void ResetPreviousMeasurement()
+        {
+            _lastMeasurement = BodyMeasurements.GetLastMeasurement();
         }
 
 		private void UpdateDateView()
