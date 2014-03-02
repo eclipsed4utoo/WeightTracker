@@ -15,6 +15,8 @@ namespace WeightTracker
 	[Activity (Label = "WeightTracker", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
+        #region Private Variables
+
 		private ListView _measurementListView = null;
 		private MeasurementAdapter _adapter = null;
 
@@ -49,6 +51,8 @@ namespace WeightTracker
 		private DateTime _currentDate = DateTime.Today;
 
 		private List<BodyMeasurements> _bodyMeasurements = null;
+
+        #endregion
 
 		private const int DATE_DIALOG_ID = 0;
 
@@ -108,10 +112,40 @@ namespace WeightTracker
 
 			_measurementListView = FindViewById<ListView> (Resource.Id.MeasurementsListView);
             _measurementListView.ItemClick += ListViewClick;
+            _measurementListView.ItemsCanFocus = true;
+            _measurementListView.Focusable = false;
+            _measurementListView.FocusableInTouchMode = false;
+            _measurementListView.Clickable = true;
 			
             PopulateMeasurements();
 			UpdateDateView ();
 		}
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            this.MenuInflater.Inflate(0, menu);
+            return true;
+        }
+
+        protected override Dialog OnCreateDialog (int id)
+        {
+            switch (id) {
+                case DATE_DIALOG_ID:
+                    return new DatePickerDialog (this, OnDateSet, _currentDate.Year, _currentDate.Month - 1, _currentDate.Day); 
+            }
+            return null;
+        }
+
+        private void ShowDatePicker (object sender, EventArgs e)
+        {
+            ShowDialog (DATE_DIALOG_ID);
+        }
+
+        private void OnDateSet (object sender, DatePickerDialog.DateSetEventArgs e)
+        {
+            _currentDate = e.Date;
+            UpdateDateView ();
+        }
 
         private void RightCalfKeyPress (object sender, View.KeyEventArgs e)
         {
@@ -127,186 +161,97 @@ namespace WeightTracker
         private void ListViewClick (object sender, AdapterView.ItemClickEventArgs e)
         {
             var selectedMeasurement = _bodyMeasurements[e.Position];
-            //TODO: show custom alert with a view to show the information for the selected measurement
+
+            AlertDialog.Builder builder = new AlertDialog.Builder (this);
+            View view = View.Inflate (this, Resource.Layout.DisplayMeasurement, null);
+
+            var textView = view.FindViewById<TextView>(Resource.Id.DisplayWeight);
+            textView.Text = selectedMeasurement.Weight.ToString() + " lbs";
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayLeftArm);
+            textView.Text = selectedMeasurement.LeftArm.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayRightArm);
+            textView.Text = selectedMeasurement.RightArm.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayChest);
+            textView.Text = selectedMeasurement.Chest.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayWaist);
+            textView.Text = selectedMeasurement.Waist.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayAbs);
+            textView.Text = selectedMeasurement.Abdominal.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayHips);
+            textView.Text = selectedMeasurement.Hips.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayLeftThigh);
+            textView.Text = selectedMeasurement.LeftThigh.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayRightThigh);
+            textView.Text = selectedMeasurement.RightThigh.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayLeftCalf);
+            textView.Text = selectedMeasurement.LeftCalf.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayRightCalf);
+            textView.Text = selectedMeasurement.RightCalf.ToString();
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayTotalSizeChange);
+            textView.Text = selectedMeasurement.TotalSizeChange.ToString() + " inches";
+
+            textView = view.FindViewById<TextView>(Resource.Id.DisplayTotalWeightChange);
+            textView.Text = selectedMeasurement.TotalWeightChange.ToString() + " lbs";
+
+            builder.SetView(view)
+                .SetTitle("Measurements for " + selectedMeasurement.Date.ToString("MM-dd-yyyy"))
+                .SetPositiveButton("OK", (dialog, es) =>
+                {
+
+                });
+
+            var alert = builder.Create();
+            alert.Show();
         }
 
-		protected override Dialog OnCreateDialog (int id)
-		{
-			switch (id) {
-				case DATE_DIALOG_ID:
-					return new DatePickerDialog (this, OnDateSet, _currentDate.Year, _currentDate.Month - 1, _currentDate.Day); 
-			}
-			return null;
-		}
-
-        private void PopulateMeasurements()
+        private void SaveMeasurements (object sender, EventArgs e)
         {
-            _bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
-            _adapter = new MeasurementAdapter (this, _bodyMeasurements);
-            _measurementListView.Adapter = _adapter;
-            _adapter.NotifyDataSetChanged ();
-        }
+            var bodyMeas = new BodyMeasurements ();
+            bodyMeas.Date = _currentDate;
 
-		private void ShowDatePicker (object sender, EventArgs e)
-		{
-			ShowDialog (DATE_DIALOG_ID);
-		}
+            if (!string.IsNullOrEmpty (_weightTextBox.Text))
+                bodyMeas.Weight =  _weightTextBox.Text.AsDouble ();
 
-		private void OnDateSet (object sender, DatePickerDialog.DateSetEventArgs e)
-		{
-			_currentDate = e.Date;
-			UpdateDateView ();
-		}
+            if (!string.IsNullOrEmpty (_leftArmTextBox.Text))
+                bodyMeas.LeftArm = _leftArmTextBox.Text.AsDouble ();
 
-		private void UpdateDateView()
-		{
-			_dateTextView.Text = _currentDate.ToString ("MM/dd/yyyy");
-		}
+            if (!string.IsNullOrEmpty (_rightArmTextBox.Text))
+                bodyMeas.RightArm = _rightArmTextBox.Text.AsDouble ();
 
-		private void WeightLostFocus (object sender, View.FocusChangeEventArgs e)
-		{
-			if (e.HasFocus)
-				return;
+            if (!string.IsNullOrEmpty (_chestTextBox.Text))
+                bodyMeas.Chest = _chestTextBox.Text.AsDouble ();
 
-			if (_lastMeasurement == null)
-				_lastMeasurement = BodyMeasurements.GetLastMeasurement ();
+            if (!string.IsNullOrEmpty (_waistTextBox.Text))
+                bodyMeas.Waist = _waistTextBox.Text.AsDouble ();
 
-			TextView changeTextView = null;
-			double previousValue = 0;
-			double newValue = 0;
+            if (!string.IsNullOrEmpty (_absTextBox.Text))
+                bodyMeas.Abdominal = _absTextBox.Text.AsDouble ();
 
-			if (sender == _weightTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.WeightChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.Weight : 0;
-				newValue = _weightTextBox.Text.AsDouble ();
-			}
-			else if (sender == _leftArmTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.LeftArmChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftArm : 0;
-				newValue = _leftArmTextBox.Text.AsDouble ();
-			}
-			else if (sender == _rightArmTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.RightArmChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightArm : 0;
-				newValue = _rightArmTextBox.Text.AsDouble ();
-			}
-			else if (sender == _chestTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.ChestChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.Chest : 0;
-				newValue = _chestTextBox.Text.AsDouble ();
-			}
-			else if (sender == _waistTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.WaistChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.Waist : 0;
-				newValue = _waistTextBox.Text.AsDouble ();
-			}
-			else if (sender == _absTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.AbsChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.Abdominal : 0;
-				newValue = _absTextBox.Text.AsDouble ();
-			}
-			else if (sender == _hipsTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.HipsChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.Hips : 0;
-				newValue = _hipsTextBox.Text.AsDouble ();
-			}
-			else if (sender == _leftThighTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.LeftThighChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftThigh : 0;
-				newValue = _leftThighTextBox.Text.AsDouble ();
-			}
-			else if (sender == _rightThighTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.RightThighChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightThigh : 0;
-				newValue = _rightThighTextBox.Text.AsDouble ();
-			}
-			else if (sender == _leftCalfTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.LeftCalfChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftCalf : 0;
-				newValue = _leftCalfTextBox.Text.AsDouble ();
-			}
-			else if (sender == _rightCalfTextBox)
-			{
-				changeTextView = FindViewById<TextView> (Resource.Id.RightCalfChange);
-				previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightCalf : 0;
-				newValue = _rightCalfTextBox.Text.AsDouble ();
-			}
+            if (!string.IsNullOrEmpty (_hipsTextBox.Text))
+                bodyMeas.Hips = _hipsTextBox.Text.AsDouble ();
 
-			PopulateChange (changeTextView, previousValue, newValue);
-		}
+            if (!string.IsNullOrEmpty (_leftThighTextBox.Text))
+                bodyMeas.LeftThigh = _leftThighTextBox.Text.AsDouble ();
 
-		private void PopulateChange(TextView view, double previousValue, double newValue)
-		{
-            if (newValue <= 0)
-                return;
+            if (!string.IsNullOrEmpty (_rightThighTextBox.Text))
+                bodyMeas.RightThigh = _rightThighTextBox.Text.AsDouble ();
 
-			double result = newValue - previousValue;
-			view.Text = (previousValue == 0) ? "0" : string.Format ("{0}{1}", (result < 0) ? "-" : "", result);
+            if (!string.IsNullOrEmpty (_leftCalfTextBox.Text))
+                bodyMeas.LeftCalf = _leftCalfTextBox.Text.AsDouble ();
 
-			Color color = Color.White;
-			if (result > 0)
-				color = Color.Red;
-			else if (result < 0)
-				color = Color.Green;
-
-			if (previousValue == 0)
-				color = Color.White;
-
-			view.SetTextColor (color);
-
-            if (view == FindViewById<TextView>(Resource.Id.WeightChange))
-                return;
-
-            _totalSizeChange -= result;
-		}
-
-		private void SaveMeasurements (object sender, EventArgs e)
-        {
-			var bodyMeas = new BodyMeasurements ();
-			bodyMeas.Date = _currentDate;
-
-			if (!string.IsNullOrEmpty (_weightTextBox.Text))
-				bodyMeas.Weight =  _weightTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_leftArmTextBox.Text))
-				bodyMeas.LeftArm = _leftArmTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_rightArmTextBox.Text))
-				bodyMeas.RightArm = _rightArmTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_chestTextBox.Text))
-				bodyMeas.Chest = _chestTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_waistTextBox.Text))
-				bodyMeas.Waist = _waistTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_absTextBox.Text))
-				bodyMeas.Abdominal = _absTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_hipsTextBox.Text))
-				bodyMeas.Hips = _hipsTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_leftThighTextBox.Text))
-				bodyMeas.LeftThigh = _leftThighTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_rightThighTextBox.Text))
-				bodyMeas.RightThigh = _rightThighTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_leftCalfTextBox.Text))
-				bodyMeas.LeftCalf = _leftCalfTextBox.Text.AsDouble ();
-
-			if (!string.IsNullOrEmpty (_rightCalfTextBox.Text))
-				bodyMeas.RightCalf = _rightCalfTextBox.Text.AsDouble ();
+            if (!string.IsNullOrEmpty (_rightCalfTextBox.Text))
+                bodyMeas.RightCalf = _rightCalfTextBox.Text.AsDouble ();
 
             if (_lastMeasurement != null)
             {
@@ -316,13 +261,133 @@ namespace WeightTracker
                 bodyMeas.TotalSizeChange = _totalSizeChange;
             }
 
-			bodyMeas.Save ();
-			_lastMeasurement = bodyMeas;
+            bodyMeas.Save ();
+            _lastMeasurement = bodyMeas;
             _totalSizeChange = 0;
 
-			ClearScreen ();
+            ClearScreen ();
             PopulateMeasurements();
         }
+
+        private void WeightLostFocus (object sender, View.FocusChangeEventArgs e)
+        {
+            if (e.HasFocus)
+                return;
+
+            if (_lastMeasurement == null)
+                _lastMeasurement = BodyMeasurements.GetLastMeasurement ();
+
+            TextView changeTextView = null;
+            double previousValue = 0;
+            double newValue = 0;
+
+            if (sender == _weightTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.WeightChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.Weight : 0;
+                newValue = _weightTextBox.Text.AsDouble ();
+            }
+            else if (sender == _leftArmTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.LeftArmChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftArm : 0;
+                newValue = _leftArmTextBox.Text.AsDouble ();
+            }
+            else if (sender == _rightArmTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.RightArmChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightArm : 0;
+                newValue = _rightArmTextBox.Text.AsDouble ();
+            }
+            else if (sender == _chestTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.ChestChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.Chest : 0;
+                newValue = _chestTextBox.Text.AsDouble ();
+            }
+            else if (sender == _waistTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.WaistChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.Waist : 0;
+                newValue = _waistTextBox.Text.AsDouble ();
+            }
+            else if (sender == _absTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.AbsChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.Abdominal : 0;
+                newValue = _absTextBox.Text.AsDouble ();
+            }
+            else if (sender == _hipsTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.HipsChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.Hips : 0;
+                newValue = _hipsTextBox.Text.AsDouble ();
+            }
+            else if (sender == _leftThighTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.LeftThighChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftThigh : 0;
+                newValue = _leftThighTextBox.Text.AsDouble ();
+            }
+            else if (sender == _rightThighTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.RightThighChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightThigh : 0;
+                newValue = _rightThighTextBox.Text.AsDouble ();
+            }
+            else if (sender == _leftCalfTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.LeftCalfChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftCalf : 0;
+                newValue = _leftCalfTextBox.Text.AsDouble ();
+            }
+            else if (sender == _rightCalfTextBox)
+            {
+                changeTextView = FindViewById<TextView> (Resource.Id.RightCalfChange);
+                previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightCalf : 0;
+                newValue = _rightCalfTextBox.Text.AsDouble ();
+            }
+
+            PopulateChange (changeTextView, previousValue, newValue);
+        }
+
+        private void PopulateChange(TextView view, double previousValue, double newValue)
+        {
+            if (newValue <= 0)
+                return;
+
+            double result = newValue - previousValue;
+            view.Text = (previousValue == 0) ? "0" : string.Format ("{0}{1}", (result < 0) ? "-" : "", result);
+
+            Color color = Color.White;
+            if (result > 0)
+                color = Color.Red;
+            else if (result < 0)
+                color = Color.Green;
+
+            if (previousValue == 0)
+                color = Color.White;
+
+            view.SetTextColor (color);
+
+            if (view == FindViewById<TextView>(Resource.Id.WeightChange))
+                return;
+
+            _totalSizeChange += result;
+        }
+
+        private void PopulateMeasurements()
+        {
+            _bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
+            _adapter = new MeasurementAdapter (this, _bodyMeasurements);
+            _measurementListView.Adapter = _adapter;
+            _adapter.NotifyDataSetChanged ();
+        }
+
+		private void UpdateDateView()
+		{
+			_dateTextView.Text = _currentDate.ToString ("MM/dd/yyyy");
+		}
 
 		private void ClearScreen()
 		{

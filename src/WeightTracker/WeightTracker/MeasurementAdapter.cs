@@ -3,6 +3,7 @@ using Android.Widget;
 using System.Collections.Generic;
 using Android.Views;
 using Android.Content;
+using Android.App;
 
 namespace WeightTracker
 {
@@ -11,9 +12,11 @@ namespace WeightTracker
 		private ListView _parent = null;
 		private LayoutInflater layoutInflater;
 		private List<BodyMeasurements> _measurements = null;
+        private Context _context = null;
 
 		public MeasurementAdapter (Context context, List<BodyMeasurements> measurements)
 		{
+            _context = context;
 			_measurements = measurements;
 			layoutInflater = LayoutInflater.From (context);
 		}
@@ -34,6 +37,10 @@ namespace WeightTracker
 				holder = new ViewHolder ();
 				holder.DateTextView = convertView.FindViewById<TextView> (Resource.Id.RowDate);
 				holder.DeleteImageButton = convertView.FindViewById<ImageButton> (Resource.Id.RowDeleteButton);
+                holder.DeleteImageButton.Focusable = false;
+                holder.DeleteImageButton.FocusableInTouchMode = false;
+                holder.DeleteImageButton.Clickable = true;
+
 				holder.TotalChangeTextView = convertView.FindViewById<TextView> (Resource.Id.RowTotalChange);
 				holder.WeightChangeTextView = convertView.FindViewById<TextView> (Resource.Id.RowWeightChange);
 
@@ -58,11 +65,21 @@ namespace WeightTracker
 
 		private void DeleteRow (object sender, EventArgs e)
 		{
-			int position = _parent.GetPositionForView ((View)sender);
-            var measurement = _measurements[position];
-			_measurements.RemoveAt (position);
-            measurement.Delete();
-			this.NotifyDataSetChanged ();
+            var builder = new AlertDialog.Builder(_context);
+            builder.SetTitle("Delete Measurement")
+                .SetMessage("Are you sure you want to delete this measurement?")
+                .SetPositiveButton("Yes", (dialog, es) =>
+                {
+                    int position = _parent.GetPositionForView ((View)sender);
+                    var measurement = _measurements[position];
+                    _measurements.RemoveAt (position);
+                    measurement.Delete();
+                    this.NotifyDataSetChanged ();
+                })
+                .SetNegativeButton("No", (dialog, es) => {});
+
+            var alert = builder.Create();
+            alert.Show();
 		}
 
 		public override int Count {

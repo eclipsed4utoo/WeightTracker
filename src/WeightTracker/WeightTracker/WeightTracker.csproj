@@ -68,9 +68,12 @@
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\layout\MeasurementRow.axml" />
     <AndroidResource Include="Resources\drawable\trash.png" />
+    <AndroidResource Include="Resources\layout\DisplayMeasurement.axml" />
+    <AndroidResource Include="Resources\menu\MainMenu.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\layout\" />
+    <Folder Include="Resources\menu\" />
   </ItemGroup>
 </Project>
