@@ -22,6 +22,8 @@ namespace WeightTracker
 		public double RightThigh { get; set; }
 		public double LeftCalf { get; set; }
 		public double RightCalf { get; set; }
+        public double TotalSizeChange { get; set; }
+        public double TotalWeightChange { get; set; }
 
 		public BodyMeasurements ()
 		{
@@ -34,6 +36,14 @@ namespace WeightTracker
 				conn.Insert (this);
 			}
 		}
+
+        public void Delete()
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+            {
+                conn.Delete(this);
+            }
+        }
 
 		public static List<BodyMeasurements> GetAllMeasurements()
 		{

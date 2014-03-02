@@ -8,6 +8,7 @@ using Android.OS;
 using Android.Graphics;
 using System.IO;
 using System.Collections.Generic;
+using Android.Views.InputMethods;
 
 namespace WeightTracker
 {
@@ -16,6 +17,8 @@ namespace WeightTracker
 	{
 		private ListView _measurementListView = null;
 		private MeasurementAdapter _adapter = null;
+
+        private double _totalSizeChange = 0;
 
 		private TextView _dateTextView = null;
 		private EditText _weightTextBox = null;
@@ -99,17 +102,33 @@ namespace WeightTracker
 			_rightThighTextBox.FocusChange += WeightLostFocus;
 			_leftCalfTextBox.FocusChange += WeightLostFocus;
 			_rightCalfTextBox.FocusChange += WeightLostFocus;
+            _rightCalfTextBox.KeyPress += RightCalfKeyPress;
 
 			_dateTextView.Click += ShowDatePicker;
 
 			_measurementListView = FindViewById<ListView> (Resource.Id.MeasurementsListView);
-			_bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
-			_adapter = new MeasurementAdapter (this, _bodyMeasurements);
-			_measurementListView.Adapter = _adapter;
-			_adapter.NotifyDataSetChanged ();
-
+            _measurementListView.ItemClick += ListViewClick;
+			
+            PopulateMeasurements();
 			UpdateDateView ();
 		}
+
+        private void RightCalfKeyPress (object sender, View.KeyEventArgs e)
+        {
+            if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
+            {
+                InputMethodManager manager = (InputMethodManager) GetSystemService(InputMethodService);
+                manager.HideSoftInputFromWindow(_rightCalfTextBox.WindowToken, 0);
+            }
+
+            e.Handled = false;
+        }
+
+        private void ListViewClick (object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var selectedMeasurement = _bodyMeasurements[e.Position];
+            //TODO: show custom alert with a view to show the information for the selected measurement
+        }
 
 		protected override Dialog OnCreateDialog (int id)
 		{
@@ -119,6 +138,14 @@ namespace WeightTracker
 			}
 			return null;
 		}
+
+        private void PopulateMeasurements()
+        {
+            _bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
+            _adapter = new MeasurementAdapter (this, _bodyMeasurements);
+            _measurementListView.Adapter = _adapter;
+            _adapter.NotifyDataSetChanged ();
+        }
 
 		private void ShowDatePicker (object sender, EventArgs e)
 		{
@@ -220,6 +247,9 @@ namespace WeightTracker
 
 		private void PopulateChange(TextView view, double previousValue, double newValue)
 		{
+            if (newValue <= 0)
+                return;
+
 			double result = newValue - previousValue;
 			view.Text = (previousValue == 0) ? "0" : string.Format ("{0}{1}", (result < 0) ? "-" : "", result);
 
@@ -233,6 +263,11 @@ namespace WeightTracker
 				color = Color.White;
 
 			view.SetTextColor (color);
+
+            if (view == FindViewById<TextView>(Resource.Id.WeightChange))
+                return;
+
+            _totalSizeChange -= result;
 		}
 
 		private void SaveMeasurements (object sender, EventArgs e)
@@ -273,10 +308,20 @@ namespace WeightTracker
 			if (!string.IsNullOrEmpty (_rightCalfTextBox.Text))
 				bodyMeas.RightCalf = _rightCalfTextBox.Text.AsDouble ();
 
+            if (_lastMeasurement != null)
+            {
+                if (bodyMeas.Weight > 0)
+                    bodyMeas.TotalWeightChange = bodyMeas.Weight - _lastMeasurement.Weight;
+
+                bodyMeas.TotalSizeChange = _totalSizeChange;
+            }
+
 			bodyMeas.Save ();
 			_lastMeasurement = bodyMeas;
+            _totalSizeChange = 0;
 
 			ClearScreen ();
+            PopulateMeasurements();
         }
 
 		private void ClearScreen()

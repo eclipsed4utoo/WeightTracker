@@ -22,7 +22,7 @@ namespace WeightTracker
 
 		public override long GetItemId (int position)
 		{
-			throw new NotImplementedException ();
+            return _measurements[position].ID;
 		}
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
@@ -48,8 +48,8 @@ namespace WeightTracker
 
 			var mea = _measurements [position];
 			holder.DateTextView.Text = mea.Date.ToString ("MM/dd/yyyy");
-			holder.TotalChangeTextView.Text = "0";
-			holder.WeightChangeTextView.Text = "0";
+            holder.TotalChangeTextView.Text = mea.TotalSizeChange.ToString();
+            holder.WeightChangeTextView.Text = mea.TotalWeightChange.ToString();
 
 			_parent = (ListView)parent;
 
@@ -59,7 +59,9 @@ namespace WeightTracker
 		private void DeleteRow (object sender, EventArgs e)
 		{
 			int position = _parent.GetPositionForView ((View)sender);
+            var measurement = _measurements[position];
 			_measurements.RemoveAt (position);
+            measurement.Delete();
 			this.NotifyDataSetChanged ();
 		}
 

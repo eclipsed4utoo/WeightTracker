@@ -405,7 +405,8 @@
             android:layout_marginLeft="@dimen/edit_text_left_margin"
             android:singleLine="true"
             android:textSize="@dimen/edit_text_text_size"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom"
+            android:nextFocusDown="@+id/RightCalfChange" />
         <TextView
             android:text="0"
             android:layout_width="@dimen/amount_changed_width"
