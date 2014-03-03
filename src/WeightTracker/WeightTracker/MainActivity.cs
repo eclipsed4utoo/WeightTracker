@@ -121,6 +121,12 @@ namespace WeightTracker
 			UpdateDateView ();
 		}
 
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            HideKeyboard();
+            return base.OnTouchEvent(e);
+        }
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             this.MenuInflater.Inflate(Resource.Menu.MainMenu, menu);
@@ -164,8 +170,7 @@ namespace WeightTracker
         {
             if (e.Event.Action == KeyEventActions.Down && e.KeyCode == Keycode.Enter)
             {
-                InputMethodManager manager = (InputMethodManager) GetSystemService(InputMethodService);
-                manager.HideSoftInputFromWindow(_rightCalfTextBox.WindowToken, 0);
+                HideKeyboard();
             }
 
             e.Handled = false;
@@ -364,6 +369,11 @@ namespace WeightTracker
             PopulateChange (changeTextView, previousValue, newValue);
         }
 
+        private void MeasurementDeleted (object sender, EventArgs e)
+        {
+            ResetPreviousMeasurement();
+        }
+
         private void PopulateChange(TextView view, double previousValue, double newValue)
         {
             if (newValue <= 0)
@@ -388,7 +398,7 @@ namespace WeightTracker
 
             _totalSizeChange += result;
         }
-
+            
         private void PopulateMeasurements()
         {
             _bodyMeasurements = BodyMeasurements.GetAllMeasurements ();
@@ -405,9 +415,10 @@ namespace WeightTracker
             _adapter.NotifyDataSetChanged ();
         }
 
-        private void MeasurementDeleted (object sender, EventArgs e)
+        private void HideKeyboard()
         {
-            ResetPreviousMeasurement();
+            InputMethodManager manager = (InputMethodManager) GetSystemService(InputMethodService);
+            manager.HideSoftInputFromWindow(_rightCalfTextBox.WindowToken, 0);
         }
 
         private void ResetPreviousMeasurement()
