@@ -266,8 +266,8 @@ namespace WeightTracker
 			// aapt resource value: 0x7f08001d
 			public const int RightArmTextBox = 2131230749;
 			
-			// aapt resource value: 0x7f080033
-			public const int RightCalfChange = 2131230771;
+			// aapt resource value: 0x7f080034
+			public const int RightCalfChange = 2131230772;
 			
 			// aapt resource value: 0x7f080030
 			public const int RightCalfTextBox = 2131230768;
@@ -290,8 +290,8 @@ namespace WeightTracker
 			// aapt resource value: 0x7f08003c
 			public const int RowWeightChange = 2131230780;
 			
-			// aapt resource value: 0x7f080035
-			public const int SaveButton = 2131230773;
+			// aapt resource value: 0x7f080033
+			public const int SaveButton = 2131230771;
 			
 			// aapt resource value: 0x7f080024
 			public const int WaistChange = 2131230756;
@@ -317,8 +317,8 @@ namespace WeightTracker
 			// aapt resource value: 0x7f080032
 			public const int linearLayout12 = 2131230770;
 			
-			// aapt resource value: 0x7f080034
-			public const int linearLayout13 = 2131230772;
+			// aapt resource value: 0x7f080035
+			public const int linearLayout13 = 2131230773;
 			
 			// aapt resource value: 0x7f080036
 			public const int linearLayout14 = 2131230774;

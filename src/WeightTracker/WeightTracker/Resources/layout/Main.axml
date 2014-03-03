@@ -406,7 +406,7 @@
             android:singleLine="true"
             android:textSize="@dimen/edit_text_text_size"
             android:layout_gravity="bottom"
-            android:nextFocusDown="@+id/RightCalfChange" />
+            android:nextFocusDown="@+id/SaveButton" />
         <TextView
             android:text="0"
             android:layout_width="@dimen/amount_changed_width"
@@ -429,7 +429,9 @@
             android:layout_height="@dimen/save_button_height"
             android:id="@+id/SaveButton"
             android:layout_marginLeft="@dimen/save_button_left_margin"
-            android:layout_marginTop="@dimen/save_button_top_margin" />
+            android:layout_marginTop="@dimen/save_button_top_margin"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
