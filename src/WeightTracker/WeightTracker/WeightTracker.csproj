@@ -48,6 +48,10 @@
     <Reference Include="Xamarin.Controls.BarChart.Android">
       <HintPath>..\Components\barchart-1.1\lib\android\Xamarin.Controls.BarChart.Android.dll</HintPath>
     </Reference>
+    <Reference Include="DropboxSync.Android">
+      <HintPath>..\Components\dropboxsync-2.0.2.1\lib\android\DropboxSync.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android.Support.v4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -83,8 +87,11 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="barchart">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="dropboxsync">
+      <Version>2.0.2.1</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>

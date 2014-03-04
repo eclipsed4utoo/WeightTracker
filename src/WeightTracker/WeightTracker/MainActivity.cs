@@ -9,12 +9,25 @@ using Android.Graphics;
 using System.IO;
 using System.Collections.Generic;
 using Android.Views.InputMethods;
+using DropboxSync.Android;
+using System.Threading.Tasks;
 
 namespace WeightTracker
 {
     [Activity (Label = "Weight Tracker", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
+        #region Dropbox variables
+
+        private const string DROPBOX_API_KEY = "z35j57g4o6bmt5w";
+        private const string DROPBOX_API_SECRET = "jeb84jqy7bgesfw";
+
+        private DBAccountManager _dbAccountManager = null;
+        private DBDatastore _dbDataStore = null;
+        private DBAccount _dbAccount = null;
+
+        #endregion
+
         #region Private Variables
 
 		private ListView _measurementListView = null;
@@ -55,8 +68,9 @@ namespace WeightTracker
         #endregion
 
 		private const int DATE_DIALOG_ID = 0;
+        private const int LINK_TO_DROPBOX_REQUEST = 1000;
 
-		protected override void OnCreate (Bundle bundle)
+        protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
@@ -118,13 +132,27 @@ namespace WeightTracker
             _measurementListView.Clickable = true;
 			
             PopulateMeasurements();
-			UpdateDateView ();
+            UpdateDateView ();
+            LinkDropBoxAccount();
 		}
 
         public override bool OnTouchEvent(MotionEvent e)
         {
             HideKeyboard();
             return base.OnTouchEvent(e);
+        }
+
+        protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
+        {
+            if (requestCode == LINK_TO_DROPBOX_REQUEST && resultCode != Result.Canceled) 
+            {
+                StartApp();
+            } 
+            else 
+            {
+                _dbAccountManager.Unlink();
+                LinkDropBoxAccount ();
+            }
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -285,6 +313,7 @@ namespace WeightTracker
 
             ClearScreen ();
             PopulateMeasurements();
+            UpdateDropbox();
         }
 
         private void WeightLostFocus (object sender, View.FocusChangeEventArgs e)
@@ -470,6 +499,135 @@ namespace WeightTracker
 
 			_dateTextView.RequestFocus ();
 		}
+
+        #region DropBox Integration
+
+        private void InitializeDropbox (DBAccount account)
+        {
+            if (_dbDataStore == null || !_dbDataStore.IsOpen || _dbDataStore.Manager.IsShutDown) 
+            {
+                _dbDataStore = DBDatastore.OpenDefault (account ?? _dbAccountManager.LinkedAccount);
+                _dbAccount = account ?? _dbAccountManager.LinkedAccount;
+                _dbDataStore.DatastoreChanged += HandleStoreChange;
+            }
+        }
+
+        private void HandleStoreChange (object sender, DBDatastore.SyncStatusEventArgs e)
+        {
+            if (e.P0.SyncStatus.HasIncoming)
+            {
+                if (!_dbAccountManager.HasLinkedAccount) 
+                    _dbDataStore.DatastoreChanged -= HandleStoreChange;
+
+                Console.WriteLine ("Datastore needs to be re-synced.");
+                _dbDataStore.Sync ();
+            }
+        }
+
+        private Task LinkDropBoxAccount()
+        {
+            return Task.Run(() =>
+            {
+                // Setup Dropbox.
+                _dbAccountManager = DBAccountManager.GetInstance (this.ApplicationContext, DROPBOX_API_KEY, DROPBOX_API_SECRET);
+                _dbAccountManager.LinkedAccountChanged += (sender, e) => 
+                {
+                    if (e.P1.IsLinked)
+                        Log("Account.LinkedAccountChanged", "Now linked to {0}", e.P1 != null ? e.P1.AccountInfo != null ? e.P1.AccountInfo.DisplayName : "nobody" : "null");
+                    else 
+                    {
+                        Log("Account.LinkedAccountChanged", "Now unlinked from {0}", e.P1 != null ? e.P1.AccountInfo != null ? e.P1.AccountInfo.DisplayName : "nobody" : "null");
+                        StartDropBoxLink();
+                        return;
+                    }
+
+                    _dbAccountManager = e.P0;
+                    _dbAccount = e.P1;
+                    StartApp (_dbAccount);
+                };
+
+                if (!_dbAccountManager.HasLinkedAccount) {
+                    StartDropBoxLink();
+                }
+                else {
+                    StartApp ();
+                }
+            });
+        }
+
+        private void StartDropBoxLink()
+        {
+            _dbAccountManager.StartLink (this, LINK_TO_DROPBOX_REQUEST);
+        }
+
+        private void StartApp (DBAccount account = null)
+        {
+            InitializeDropbox (account);
+            Log("StartApp", "Syncing measurements...");
+            _dbDataStore.Sync();
+        }
+
+        private void UpdateDropbox ()
+        {
+            Log("Updating Dropbox");
+
+            var fileSystem = DBFileSystem.ForAccount(_dbAccount);
+            //DBPath *newPath = [[DBPath root] childPath:@"hello.txt"];
+            //DBFile *file = [[DBFilesystem sharedFilesystem] createFile:newPath error:nil];
+            //[file writeString:@"Hello World!" error:nil];
+
+            var newPath = DBPath.Root.GetChild("measurements.xml");
+            var file = fileSystem.Open(newPath);
+
+            var measurements = BodyMeasurements.GetAllMeasurements();
+            Utilities.ExportMeasurements(measurements);
+
+            file.WriteFromExistingFile(new Java.IO.File(Utilities.ExportedDatabasePath), false);
+            file.Close();
+
+            if (!VerifyStore()) {
+                RestartAuthFlow (); 
+            } else {
+                _dbDataStore.Sync();
+            }
+        }
+
+        private bool VerifyStore ()
+        {
+            if (!_dbDataStore.IsOpen) {
+                Log ("VerifyStore", "Datastore is NOT open.");
+                return false;
+            }
+            if (_dbDataStore.Manager.IsShutDown) {
+                Log ("VerifyStore", "Manager is shutdown.");
+                return false;
+            }
+            if (!_dbAccountManager.HasLinkedAccount) {
+                Log ("VerifyStore", "Account was unlinked while we weren't watching.");
+                return false;
+            }
+            return true;
+        }
+
+        private void RestartAuthFlow ()
+        {
+            if (_dbAccountManager.HasLinkedAccount)
+                _dbAccountManager.Unlink();
+            else
+                StartDropBoxLink();
+        }
+
+        private void Log (string location) {
+            Log(location, String.Empty);           
+        }
+
+        private void Log (string location, string format, params object[] objects)
+        {
+            var tag = String.Format("{0} {1}.{2}", GetType ().Name, (_lastMeasurement != null) ? _lastMeasurement.Date.ToString("MM/dd/yyyy") : string.Empty, location);
+            global::Android.Util.Log.Debug (tag, format, objects);
+        }
+
+        #endregion
 	}
 }
 
