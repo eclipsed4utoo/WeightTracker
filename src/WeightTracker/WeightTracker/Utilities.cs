@@ -14,6 +14,8 @@ namespace WeightTracker
 		public static string DatabasePath = Utilities.ApplicationDirectory + "/weight.db3";
         public static string ExportedDatabasePath = Utilities.ApplicationDirectory + "/weight.xml";
 
+        public const int LINK_TO_DROPBOX_REQUEST = 1000;
+
 		public static void CreateApplicationDirectory()
 		{
 			if (!Directory.Exists (Utilities.ApplicationDirectory))

@@ -63,6 +63,8 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="MeasurementAdapter.cs" />
     <Compile Include="ChartViewerActivity.cs" />
+    <Compile Include="PrefsActivity.cs" />
+    <Compile Include="DropboxSync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -79,11 +81,13 @@
     <AndroidResource Include="Resources\layout\DisplayMeasurement.axml" />
     <AndroidResource Include="Resources\menu\MainMenu.axml" />
     <AndroidResource Include="Resources\layout\ChartViewer.axml" />
+    <AndroidResource Include="Resources\xml\prefs.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Resources\layout\" />
     <Folder Include="Resources\menu\" />
+    <Folder Include="Resources\xml\" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="barchart">
