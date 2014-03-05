@@ -56,17 +56,29 @@ namespace WeightTracker
 			return list;
 		}
 
-		public static BodyMeasurements GetLastMeasurement()
+        public static BodyMeasurements GetLastMeasurement(DateTime date)
 		{
 			BodyMeasurements bod = null;
 
 			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
 			{
-				bod = conn.Table<BodyMeasurements> ().OrderByDescending (t => t.Date).FirstOrDefault ();
+                bod = conn.Table<BodyMeasurements> ().Where(t => t.Date < date).OrderByDescending (t => t.Date).FirstOrDefault ();
 			}
 
 			return bod;
 		}
+
+        public static BodyMeasurements GetFirstMeasurement()
+        {
+            BodyMeasurements bod = null;
+
+            using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+            {
+                bod = conn.Table<BodyMeasurements> ().OrderBy (t => t.ID).FirstOrDefault ();
+            }
+
+            return bod;
+        }
 
         public static Dictionary<string, double> GetWeightByDate()
         {

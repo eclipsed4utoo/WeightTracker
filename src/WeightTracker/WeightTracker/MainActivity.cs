@@ -24,8 +24,10 @@ namespace WeightTracker
 		private MeasurementAdapter _adapter = null;
 
         private double _totalSizeChange = 0;
+        private double _grandTotalSizeChange = 0;
 
-		private TextView _dateTextView = null;
+        #region EditTexts
+
 		private EditText _weightTextBox = null;
 		private EditText _leftArmTextBox = null;
 		private EditText _rightArmTextBox = null;
@@ -37,6 +39,12 @@ namespace WeightTracker
 		private EditText _rightThighTextBox = null;
 		private EditText _leftCalfTextBox = null;
 		private EditText _rightCalfTextBox = null;
+
+        #endregion
+
+        #region TextViews
+
+        private TextView _dateTextView = null;
 
 		private TextView _weightChange = null;
 		private TextView _leftArmChange = null;
@@ -50,7 +58,24 @@ namespace WeightTracker
 		private TextView _leftCalfChange = null;
 		private TextView _rightCalfChange = null;
 
+        private TextView _weightChangeTotal = null;
+        private TextView _leftArmChangeTotal = null;
+        private TextView _rightArmChangeTotal = null;
+        private TextView _chestChangeTotal = null;
+        private TextView _waistChangeTotal = null;
+        private TextView _absChangeTotal = null;
+        private TextView _hipsChangeTotal = null;
+        private TextView _leftThighChangeTotal = null;
+        private TextView _rightThighChangeTotal = null;
+        private TextView _leftCalfChangeTotal = null;
+        private TextView _rightCalfChangeTotal = null;
+        private TextView _prevMeasChangeTotal = null;
+        private TextView _totalMeasChange = null;
+
+        #endregion
+
 		private BodyMeasurements _lastMeasurement = null;
+        private BodyMeasurements _firstMesurement = null;
 		private DateTime _currentDate = DateTime.Today;
 
 		private List<BodyMeasurements> _bodyMeasurements = null;
@@ -115,6 +140,20 @@ namespace WeightTracker
 			_rightThighChange = FindViewById<TextView> (Resource.Id.RightThighChange);
 			_leftCalfChange = FindViewById<TextView> (Resource.Id.LeftCalfChange);
 			_rightCalfChange = FindViewById<TextView> (Resource.Id.RightCalfChange);
+
+            _weightChangeTotal = FindViewById<TextView> (Resource.Id.WeightChangeTotal);
+            _leftArmChangeTotal = FindViewById<TextView> (Resource.Id.LeftArmChangeTotal);
+            _rightArmChangeTotal = FindViewById<TextView> (Resource.Id.RightArmChangeTotal);
+            _chestChangeTotal = FindViewById<TextView> (Resource.Id.ChestChangeTotal);
+            _waistChangeTotal = FindViewById<TextView> (Resource.Id.WaistChangeTotal);
+            _absChangeTotal = FindViewById<TextView> (Resource.Id.AbsChangeTotal);
+            _hipsChangeTotal = FindViewById<TextView> (Resource.Id.HipsChangeTotal);
+            _leftThighChangeTotal = FindViewById<TextView> (Resource.Id.LeftThighChangeTotal);
+            _rightThighChangeTotal = FindViewById<TextView> (Resource.Id.RightThighChangeTotal);
+            _leftCalfChangeTotal = FindViewById<TextView> (Resource.Id.LeftCalfChangeTotal);
+            _rightCalfChangeTotal = FindViewById<TextView> (Resource.Id.RightCalfChangeTotal);
+            _prevMeasChangeTotal = FindViewById<TextView>(Resource.Id.PrevMeasurementChangeTotal);
+            _totalMeasChange = FindViewById<TextView>(Resource.Id.TotalMeasurementChange);
 
 			_weightTextBox.FocusChange += WeightLostFocus;
 			_leftArmTextBox.FocusChange += WeightLostFocus;
@@ -209,6 +248,7 @@ namespace WeightTracker
         {
             _currentDate = e.Date;
             UpdateDateView ();
+            ResetPreviousMeasurement();
         }
 
         private void RightCalfKeyPress (object sender, View.KeyEventArgs e)
@@ -269,10 +309,7 @@ namespace WeightTracker
 
             builder.SetView(view)
                 .SetTitle("Measurements for " + selectedMeasurement.Date.ToString("MM-dd-yyyy"))
-                .SetPositiveButton("OK", (dialog, es) =>
-                {
-
-                });
+                .SetPositiveButton("OK", (dialog, es) => { });
 
             var alert = builder.Create();
             alert.Show();
@@ -344,80 +381,120 @@ namespace WeightTracker
                 return;
 
             if (_lastMeasurement == null)
-                _lastMeasurement = BodyMeasurements.GetLastMeasurement ();
+                ResetPreviousMeasurement();
+
+            if (_firstMesurement == null)
+                _firstMesurement = BodyMeasurements.GetFirstMeasurement();
 
             TextView changeTextView = null;
             double previousValue = 0;
             double newValue = 0;
+
+            TextView changeTotalTextView = null;
+            double previousValueTotal = 0;
 
             if (sender == _weightTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.WeightChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.Weight : 0;
                 newValue = _weightTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.WeightChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.Weight : 0;
             }
             else if (sender == _leftArmTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.LeftArmChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftArm : 0;
                 newValue = _leftArmTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.LeftArmChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.LeftArm : 0;
             }
             else if (sender == _rightArmTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.RightArmChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightArm : 0;
                 newValue = _rightArmTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.RightArmChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.RightArm : 0;
             }
             else if (sender == _chestTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.ChestChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.Chest : 0;
                 newValue = _chestTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.ChestChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.Chest : 0;
             }
             else if (sender == _waistTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.WaistChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.Waist : 0;
                 newValue = _waistTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.WaistChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.Waist : 0;
             }
             else if (sender == _absTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.AbsChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.Abdominal : 0;
                 newValue = _absTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.AbsChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.Abdominal : 0;
             }
             else if (sender == _hipsTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.HipsChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.Hips : 0;
                 newValue = _hipsTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.HipsChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.Hips : 0;
             }
             else if (sender == _leftThighTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.LeftThighChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftThigh : 0;
                 newValue = _leftThighTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.LeftThighChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.LeftThigh : 0;
             }
             else if (sender == _rightThighTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.RightThighChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightThigh : 0;
                 newValue = _rightThighTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.RightThighChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.RightThigh : 0;
             }
             else if (sender == _leftCalfTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.LeftCalfChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.LeftCalf : 0;
                 newValue = _leftCalfTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.LeftCalfChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.LeftCalf : 0;
             }
             else if (sender == _rightCalfTextBox)
             {
                 changeTextView = FindViewById<TextView> (Resource.Id.RightCalfChange);
                 previousValue = (_lastMeasurement != null) ? _lastMeasurement.RightCalf : 0;
                 newValue = _rightCalfTextBox.Text.AsDouble ();
+
+                changeTotalTextView = FindViewById<TextView>(Resource.Id.RightCalfChangeTotal);
+                previousValueTotal = (_firstMesurement != null) ? _firstMesurement.RightCalf : 0;
             }
 
-            PopulateChange (changeTextView, previousValue, newValue);
+            PopulateChange(changeTextView, previousValue, newValue, false);
+            PopulateChange(changeTotalTextView, previousValueTotal, newValue, true);
         }
 
         private void MeasurementDeleted (object sender, EventArgs e)
@@ -425,7 +502,7 @@ namespace WeightTracker
             ResetPreviousMeasurement();
         }
 
-        private void PopulateChange(TextView view, double previousValue, double newValue)
+        private void PopulateChange(TextView view, double previousValue, double newValue, bool isTotal)
         {
             if (newValue <= 0)
                 return;
@@ -444,10 +521,23 @@ namespace WeightTracker
 
             view.SetTextColor (color);
 
-            if (view == FindViewById<TextView>(Resource.Id.WeightChange))
+            if (view == _weightChange ||
+                view == _weightChangeTotal)
                 return;
 
-            _totalSizeChange += result;
+            if (previousValue == 0)
+                return;
+
+            if (!isTotal)
+            {
+                _totalSizeChange += result;
+                _prevMeasChangeTotal.Text = _totalSizeChange.ToString();
+            }
+            else
+            {
+                _grandTotalSizeChange += result;
+                _totalMeasChange.Text = _grandTotalSizeChange.ToString();
+            }
         }
             
         private void PopulateMeasurements()
@@ -474,7 +564,7 @@ namespace WeightTracker
 
         private void ResetPreviousMeasurement()
         {
-            _lastMeasurement = BodyMeasurements.GetLastMeasurement();
+            _lastMeasurement = BodyMeasurements.GetLastMeasurement(_currentDate);
         }
 
 		private void UpdateDateView()
@@ -518,6 +608,32 @@ namespace WeightTracker
 			_leftCalfChange.SetTextColor (Color.White);
 			_rightCalfChange.Text = "0";
 			_rightCalfChange.SetTextColor (Color.White);
+
+            _weightChangeTotal.Text = "0";
+            _weightChangeTotal.SetTextColor (Color.White);
+            _leftArmChangeTotal.Text = "0";
+            _leftArmChangeTotal.SetTextColor (Color.White);
+            _rightArmChangeTotal.Text = "0";
+            _rightArmChangeTotal.SetTextColor (Color.White);
+            _chestChangeTotal.Text = "0";
+            _chestChangeTotal.SetTextColor (Color.White);
+            _waistChangeTotal.Text = "0";
+            _waistChangeTotal.SetTextColor (Color.White);
+            _absChangeTotal.Text = "0";
+            _absChangeTotal.SetTextColor (Color.White);
+            _hipsChangeTotal.Text = "0";
+            _hipsChangeTotal.SetTextColor (Color.White);
+            _leftThighChangeTotal.Text = "0";
+            _leftThighChangeTotal.SetTextColor (Color.White);
+            _rightThighChangeTotal.Text = "0";
+            _rightThighChangeTotal.SetTextColor (Color.White);
+            _leftCalfChangeTotal.Text = "0";
+            _leftCalfChangeTotal.SetTextColor (Color.White);
+            _rightCalfChangeTotal.Text = "0";
+            _rightCalfChangeTotal.SetTextColor (Color.White);
+
+            _prevMeasChangeTotal.Text = "0";
+            _totalMeasChange.Text = "0";
 
 			_dateTextView.RequestFocus ();
 		}

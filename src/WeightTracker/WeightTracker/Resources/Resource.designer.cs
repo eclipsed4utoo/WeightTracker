@@ -167,17 +167,20 @@ namespace WeightTracker
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f090026
-			public const int AbsChange = 2131296294;
+			// aapt resource value: 0x7f09002b
+			public const int AbsChange = 2131296299;
 			
-			// aapt resource value: 0x7f090023
-			public const int AbsTextBox = 2131296291;
+			// aapt resource value: 0x7f09002c
+			public const int AbsChangeTotal = 2131296300;
 			
-			// aapt resource value: 0x7f090040
-			public const int ActionSettings = 2131296320;
+			// aapt resource value: 0x7f090027
+			public const int AbsTextBox = 2131296295;
 			
-			// aapt resource value: 0x7f09003f
-			public const int ActionViewCharts = 2131296319;
+			// aapt resource value: 0x7f09004e
+			public const int ActionSettings = 2131296334;
+			
+			// aapt resource value: 0x7f09004d
+			public const int ActionViewCharts = 2131296333;
 			
 			// aapt resource value: 0x7f090002
 			public const int BarChartDataSpinner = 2131296258;
@@ -185,11 +188,14 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090003
 			public const int BarChartLinearLayout = 2131296259;
 			
-			// aapt resource value: 0x7f090022
-			public const int ChestChange = 2131296290;
+			// aapt resource value: 0x7f090025
+			public const int ChestChange = 2131296293;
 			
-			// aapt resource value: 0x7f09001f
-			public const int ChestTextBox = 2131296287;
+			// aapt resource value: 0x7f090026
+			public const int ChestChangeTotal = 2131296294;
+			
+			// aapt resource value: 0x7f090021
+			public const int ChestTextBox = 2131296289;
 			
 			// aapt resource value: 0x7f090019
 			public const int Date = 2131296281;
@@ -233,77 +239,110 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090005
 			public const int DisplayWeight = 2131296261;
 			
-			// aapt resource value: 0x7f090028
-			public const int HipsChange = 2131296296;
+			// aapt resource value: 0x7f09002e
+			public const int HipsChange = 2131296302;
 			
-			// aapt resource value: 0x7f090025
-			public const int HipsTextBox = 2131296293;
+			// aapt resource value: 0x7f09002f
+			public const int HipsChangeTotal = 2131296303;
 			
-			// aapt resource value: 0x7f09001e
-			public const int LeftArmChange = 2131296286;
+			// aapt resource value: 0x7f09002a
+			public const int HipsTextBox = 2131296298;
+			
+			// aapt resource value: 0x7f09001f
+			public const int LeftArmChange = 2131296287;
+			
+			// aapt resource value: 0x7f090020
+			public const int LeftArmChangeTotal = 2131296288;
 			
 			// aapt resource value: 0x7f09001b
 			public const int LeftArmTextBox = 2131296283;
 			
-			// aapt resource value: 0x7f090031
-			public const int LeftCalfChange = 2131296305;
+			// aapt resource value: 0x7f09003a
+			public const int LeftCalfChange = 2131296314;
+			
+			// aapt resource value: 0x7f09003b
+			public const int LeftCalfChangeTotal = 2131296315;
+			
+			// aapt resource value: 0x7f090035
+			public const int LeftCalfTextBox = 2131296309;
+			
+			// aapt resource value: 0x7f090032
+			public const int LeftThighChange = 2131296306;
+			
+			// aapt resource value: 0x7f090033
+			public const int LeftThighChangeTotal = 2131296307;
 			
 			// aapt resource value: 0x7f09002d
-			public const int LeftCalfTextBox = 2131296301;
-			
-			// aapt resource value: 0x7f09002b
-			public const int LeftThighChange = 2131296299;
-			
-			// aapt resource value: 0x7f090027
-			public const int LeftThighTextBox = 2131296295;
+			public const int LeftThighTextBox = 2131296301;
 			
 			// aapt resource value: 0x7f090004
 			public const int MeasurementBarChart = 2131296260;
 			
-			// aapt resource value: 0x7f090037
-			public const int MeasurementsListView = 2131296311;
+			// aapt resource value: 0x7f090045
+			public const int MeasurementsListView = 2131296325;
 			
-			// aapt resource value: 0x7f090020
-			public const int RightArmChange = 2131296288;
+			// aapt resource value: 0x7f090041
+			public const int PrevMeasurementChangeTotal = 2131296321;
 			
-			// aapt resource value: 0x7f09001d
-			public const int RightArmTextBox = 2131296285;
+			// aapt resource value: 0x7f090022
+			public const int RightArmChange = 2131296290;
 			
-			// aapt resource value: 0x7f090034
-			public const int RightCalfChange = 2131296308;
+			// aapt resource value: 0x7f090023
+			public const int RightArmChangeTotal = 2131296291;
 			
-			// aapt resource value: 0x7f090030
-			public const int RightCalfTextBox = 2131296304;
+			// aapt resource value: 0x7f09001e
+			public const int RightArmTextBox = 2131296286;
 			
-			// aapt resource value: 0x7f09002e
-			public const int RightThighChange = 2131296302;
+			// aapt resource value: 0x7f09003e
+			public const int RightCalfChange = 2131296318;
 			
-			// aapt resource value: 0x7f09002a
-			public const int RightThighTextBox = 2131296298;
+			// aapt resource value: 0x7f09003f
+			public const int RightCalfChangeTotal = 2131296319;
 			
 			// aapt resource value: 0x7f090039
-			public const int RowDate = 2131296313;
+			public const int RightCalfTextBox = 2131296313;
 			
-			// aapt resource value: 0x7f090038
-			public const int RowDeleteButton = 2131296312;
+			// aapt resource value: 0x7f090036
+			public const int RightThighChange = 2131296310;
 			
-			// aapt resource value: 0x7f09003b
-			public const int RowTotalChange = 2131296315;
+			// aapt resource value: 0x7f090037
+			public const int RightThighChangeTotal = 2131296311;
 			
-			// aapt resource value: 0x7f09003c
-			public const int RowWeightChange = 2131296316;
+			// aapt resource value: 0x7f090031
+			public const int RightThighTextBox = 2131296305;
 			
-			// aapt resource value: 0x7f090033
-			public const int SaveButton = 2131296307;
+			// aapt resource value: 0x7f090047
+			public const int RowDate = 2131296327;
+			
+			// aapt resource value: 0x7f090046
+			public const int RowDeleteButton = 2131296326;
+			
+			// aapt resource value: 0x7f090049
+			public const int RowTotalChange = 2131296329;
+			
+			// aapt resource value: 0x7f09004a
+			public const int RowWeightChange = 2131296330;
+			
+			// aapt resource value: 0x7f09003d
+			public const int SaveButton = 2131296317;
+			
+			// aapt resource value: 0x7f090042
+			public const int TotalMeasurementChange = 2131296322;
+			
+			// aapt resource value: 0x7f090028
+			public const int WaistChange = 2131296296;
+			
+			// aapt resource value: 0x7f090029
+			public const int WaistChangeTotal = 2131296297;
 			
 			// aapt resource value: 0x7f090024
-			public const int WaistChange = 2131296292;
-			
-			// aapt resource value: 0x7f090021
-			public const int WaistTextBox = 2131296289;
+			public const int WaistTextBox = 2131296292;
 			
 			// aapt resource value: 0x7f09001c
 			public const int WeightChange = 2131296284;
+			
+			// aapt resource value: 0x7f09001d
+			public const int WeightChangeTotal = 2131296285;
 			
 			// aapt resource value: 0x7f09001a
 			public const int WeightTextBox = 2131296282;
@@ -311,20 +350,23 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090000
 			public const int linearLayout1 = 2131296256;
 			
-			// aapt resource value: 0x7f09002c
-			public const int linearLayout10 = 2131296300;
+			// aapt resource value: 0x7f090034
+			public const int linearLayout10 = 2131296308;
 			
-			// aapt resource value: 0x7f09002f
-			public const int linearLayout11 = 2131296303;
+			// aapt resource value: 0x7f090038
+			public const int linearLayout11 = 2131296312;
 			
-			// aapt resource value: 0x7f090032
-			public const int linearLayout12 = 2131296306;
+			// aapt resource value: 0x7f09003c
+			public const int linearLayout12 = 2131296316;
 			
-			// aapt resource value: 0x7f090035
-			public const int linearLayout13 = 2131296309;
+			// aapt resource value: 0x7f090040
+			public const int linearLayout13 = 2131296320;
 			
-			// aapt resource value: 0x7f090036
-			public const int linearLayout14 = 2131296310;
+			// aapt resource value: 0x7f090043
+			public const int linearLayout14 = 2131296323;
+			
+			// aapt resource value: 0x7f090044
+			public const int linearLayout15 = 2131296324;
 			
 			// aapt resource value: 0x7f090007
 			public const int linearLayout2 = 2131296263;
@@ -347,20 +389,20 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090017
 			public const int linearLayout8 = 2131296279;
 			
-			// aapt resource value: 0x7f090029
-			public const int linearLayout9 = 2131296297;
+			// aapt resource value: 0x7f090030
+			public const int linearLayout9 = 2131296304;
 			
 			// aapt resource value: 0x7f090001
 			public const int textView1 = 2131296257;
 			
-			// aapt resource value: 0x7f09003d
-			public const int textView2 = 2131296317;
+			// aapt resource value: 0x7f09004b
+			public const int textView2 = 2131296331;
 			
-			// aapt resource value: 0x7f09003a
-			public const int textView3 = 2131296314;
+			// aapt resource value: 0x7f090048
+			public const int textView3 = 2131296328;
 			
-			// aapt resource value: 0x7f09003e
-			public const int textView5 = 2131296318;
+			// aapt resource value: 0x7f09004c
+			public const int textView5 = 2131296332;
 			
 			static Id()
 			{
