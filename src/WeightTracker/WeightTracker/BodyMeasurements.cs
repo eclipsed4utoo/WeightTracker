@@ -106,6 +106,24 @@ namespace WeightTracker
 
             return dict;
         }
+
+        public static Dictionary<string, double> GetTotalWeightByDate()
+        {
+            var dict = new Dictionary<string, double>();
+            var data = new List<BodyMeasurements>();
+
+            using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
+            {
+                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+            }
+
+            foreach(var d in data)
+            {
+                dict[d.Date.ToString("MM-dd-yyyy")] = d.Weight;
+            }
+
+            return dict;
+        }
 	}
 }
 

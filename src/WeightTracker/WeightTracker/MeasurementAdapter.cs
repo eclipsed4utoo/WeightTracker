@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Android.Views;
 using Android.Content;
 using Android.App;
+using Android.Preferences;
 
 namespace WeightTracker
 {
@@ -13,6 +14,18 @@ namespace WeightTracker
 		private LayoutInflater layoutInflater;
 		private List<BodyMeasurements> _measurements = null;
         private Context _context = null;
+
+        private bool UseDropBox
+        {
+            get
+            {
+                if (_context == null)
+                    return false;
+
+                var prefs = PreferenceManager.GetDefaultSharedPreferences(_context);
+                return prefs.GetBoolean("useDropbox", false);
+            }
+        }
 
         public event EventHandler MeasurementDeleted;
         private void OnMeasurementDeleted()
@@ -81,6 +94,13 @@ namespace WeightTracker
                     var measurement = _measurements[position];
                     _measurements.RemoveAt (position);
                     measurement.Delete();
+
+                    if (this.UseDropBox)
+                    {
+                        var sync = DropboxSync.GetInstance(_context);
+                        sync.UpdateDropbox();
+                    }
+
                     this.NotifyDataSetChanged ();
                 })
                 .SetNegativeButton("No", (dialog, es) => {});

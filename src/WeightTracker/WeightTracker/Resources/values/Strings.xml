@@ -7,5 +7,6 @@
         <item>Weight Change By Month</item>
         <item>Size Change By Date</item>
         <item>Size Change By Month</item>
+        <item>Total Weight By Date</item>
     </string-array>
 </resources>

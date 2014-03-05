@@ -68,7 +68,7 @@ namespace WeightTracker
 
                 if (value)
                 {
-                    builder = CreateBulder("Are you sure you want to link to Dropbox? You will be prompted to allow this application to have access to your Dropbox account.");
+                    builder = CreateBulder("Are you sure you want to link to Dropbox? You may be prompted to allow this application to have access to your Dropbox account.");
                     builder
                         .SetPositiveButton("Yes", (dialog, e) =>
                         {

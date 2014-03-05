@@ -18,7 +18,8 @@ namespace WeightTracker
         Weight_By_Date = 0,
         Weight_By_Month,
         Size_By_Date,
-        Size_By_Month
+        Size_By_Month,
+        Total_Weight_By_Date
     }
 
     [Activity(Label = "Weight Tracker")]			
@@ -63,32 +64,35 @@ namespace WeightTracker
                     break;
                 case (int)ChartDataType.Size_By_Date:
                     break;
+                case (int)ChartDataType.Total_Weight_By_Date:
+                    PopulateTotalWeightByDate();
+                    break;
             }
         }
 
+
+
         private void PopulateWeightByDate()
         {
-            var items = new List<BarModel>();
             var data = BodyMeasurements.GetWeightByDate();
-            foreach(var d in data)
-            {
-                var bar = new BarModel {
-                    Value = (float)d.Value,
-                    Color = (d.Value <= 0) ? Color.Green : Color.Red,
-                    Legend = d.Key,
-                    ValueCaptionHidden = false,
-                    ValueCaption = d.Value.ToString()
-                };
-                items.Add(bar);
-            }
-
-            CreateBarChart(items);
+            PopulateChartData(data);
         }
 
         private void PopulateWeightByMonth()
         {
-            var items = new List<BarModel>();
             var data = BodyMeasurements.GetWeightByMonth();
+            PopulateChartData(data);
+        }
+
+        private void PopulateTotalWeightByDate()
+        {
+            var data = BodyMeasurements.GetTotalWeightByDate();
+            PopulateChartData(data);
+        }
+
+        private void PopulateChartData(Dictionary<string, double> data)
+        {
+            var items = new List<BarModel>();
             foreach(var d in data)
             {
                 var bar = new BarModel {
