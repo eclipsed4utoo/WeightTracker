@@ -61,8 +61,10 @@ namespace WeightTracker
                     PopulateWeightByDate();
                     break;
                 case (int)ChartDataType.Size_By_Month:
+                    PopulateSizeChangesByMonth();
                     break;
                 case (int)ChartDataType.Size_By_Date:
+                    PopulateSizeChangesByDate();
                     break;
                 case (int)ChartDataType.Total_Weight_By_Date:
                     PopulateTotalWeightByDate();
@@ -70,7 +72,17 @@ namespace WeightTracker
             }
         }
 
+        private void PopulateSizeChangesByDate()
+        {
+            var data = BodyMeasurements.GetSizeChangesByDate();
+            PopulateChartData(data);
+        }
 
+        private void PopulateSizeChangesByMonth()
+        {
+            var data = BodyMeasurements.GetSizeChangesByMonth();
+            PopulateChartData(data);
+        }
 
         private void PopulateWeightByDate()
         {
@@ -87,17 +99,20 @@ namespace WeightTracker
         private void PopulateTotalWeightByDate()
         {
             var data = BodyMeasurements.GetTotalWeightByDate();
-            PopulateChartData(data);
+            PopulateChartData(data, Color.Green);
         }
 
-        private void PopulateChartData(Dictionary<string, double> data)
+        private void PopulateChartData(Dictionary<string, double> data, Color barColor)
         {
             var items = new List<BarModel>();
             foreach(var d in data)
             {
+                if (barColor == Color.Transparent)
+                    barColor = (d.Value <= 0) ? Color.Green : Color.Red;
+
                 var bar = new BarModel {
                     Value = (float)d.Value,
-                    Color = (d.Value <= 0) ? Color.Green : Color.Red,
+                    Color = barColor,
                     Legend = d.Key,
                     ValueCaptionHidden = false,
                     ValueCaption = d.Value.ToString()
@@ -106,6 +121,11 @@ namespace WeightTracker
             }
 
             CreateBarChart(items);
+        }
+
+        private void PopulateChartData(Dictionary<string, double> data)
+        {
+            PopulateChartData(data, Color.Transparent);
         }
 
         private void CreateBarChart(List<BarModel> items)
