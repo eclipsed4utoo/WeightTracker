@@ -26,6 +26,8 @@ namespace WeightTracker
         private double _totalSizeChange = 0;
         private double _grandTotalSizeChange = 0;
 
+		private double _currentMeasurementValue = 0;
+
         #region EditTexts
 
 		private EditText _weightTextBox = null;
@@ -155,17 +157,17 @@ namespace WeightTracker
             _prevMeasChangeTotal = FindViewById<TextView>(Resource.Id.PrevMeasurementChangeTotal);
             _totalMeasChange = FindViewById<TextView>(Resource.Id.TotalMeasurementChange);
 
-			_weightTextBox.FocusChange += WeightLostFocus;
-			_leftArmTextBox.FocusChange += WeightLostFocus;
-			_rightArmTextBox.FocusChange += WeightLostFocus;
-			_chestTextBox.FocusChange += WeightLostFocus;
-			_waistTextBox.FocusChange += WeightLostFocus;
-			_absTextBox.FocusChange += WeightLostFocus;
-			_hipsTextBox.FocusChange += WeightLostFocus;
-			_leftThighTextBox.FocusChange += WeightLostFocus;
-			_rightThighTextBox.FocusChange += WeightLostFocus;
-			_leftCalfTextBox.FocusChange += WeightLostFocus;
-			_rightCalfTextBox.FocusChange += WeightLostFocus;
+			_weightTextBox.FocusChange += TextViewFocusChanged;
+			_leftArmTextBox.FocusChange += TextViewFocusChanged;
+			_rightArmTextBox.FocusChange += TextViewFocusChanged;
+			_chestTextBox.FocusChange += TextViewFocusChanged;
+			_waistTextBox.FocusChange += TextViewFocusChanged;
+			_absTextBox.FocusChange += TextViewFocusChanged;
+			_hipsTextBox.FocusChange += TextViewFocusChanged;
+			_leftThighTextBox.FocusChange += TextViewFocusChanged;
+			_rightThighTextBox.FocusChange += TextViewFocusChanged;
+			_leftCalfTextBox.FocusChange += TextViewFocusChanged;
+			_rightCalfTextBox.FocusChange += TextViewFocusChanged;
             _rightCalfTextBox.KeyPress += RightCalfKeyPress;
 
 			_dateTextView.Click += ShowDatePicker;
@@ -315,7 +317,7 @@ namespace WeightTracker
             alert.Show();
         }
 
-        private async void SaveMeasurements (object sender, EventArgs e)
+        private void SaveMeasurements (object sender, EventArgs e)
         {
             var bodyMeas = new BodyMeasurements ();
             bodyMeas.Date = _currentDate;
@@ -375,10 +377,13 @@ namespace WeightTracker
             }
         }
 
-        private void WeightLostFocus (object sender, View.FocusChangeEventArgs e)
+		private void TextViewFocusChanged (object sender, View.FocusChangeEventArgs e)
         {
             if (e.HasFocus)
-                return;
+			{
+				_currentMeasurementValue = ((TextView)sender).Text.AsDouble ();
+				return;
+			}
 
             if (_lastMeasurement == null)
                 ResetPreviousMeasurement();
@@ -493,6 +498,9 @@ namespace WeightTracker
                 previousValueTotal = (_firstMesurement != null) ? _firstMesurement.RightCalf : 0;
             }
 
+			if (_currentMeasurementValue == newValue)
+				return;
+
             PopulateChange(changeTextView, previousValue, newValue, false);
             PopulateChange(changeTotalTextView, previousValueTotal, newValue, true);
         }
@@ -508,7 +516,7 @@ namespace WeightTracker
                 return;
 
             double result = newValue - previousValue;
-            view.Text = (previousValue == 0) ? "0" : string.Format ("{0}{1}", (result < 0) ? "-" : "", result);
+            view.Text = (previousValue == 0) ? "0" : string.Format ("{0}", result);
 
             Color color = Color.White;
             if (result > 0)
