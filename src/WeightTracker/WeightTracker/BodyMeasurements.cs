@@ -10,6 +10,8 @@ namespace WeightTracker
 		[PrimaryKey, AutoIncrement]
 		public int ID { get; set; }
 
+		public int UserID { get; set; }
+
 		public DateTime Date { get; set; }
 		public double Weight { get; set; }
 		public double LeftArm { get; set; }
@@ -48,9 +50,10 @@ namespace WeightTracker
 		public static List<BodyMeasurements> GetAllMeasurements()
 		{
 			List<BodyMeasurements> list = new List<BodyMeasurements> ();
+			var settings = Settings.LoadSettings ();
 			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
 			{
-				list = conn.Table<BodyMeasurements> ().OrderByDescending (t => t.Date).ToList();
+				list = conn.Table<BodyMeasurements> ().Where(t => t.UserID == settings.CurrentUserID).OrderByDescending (t => t.Date).ToList();
 			}
 
 			return list;
@@ -59,10 +62,11 @@ namespace WeightTracker
         public static BodyMeasurements GetLastMeasurement(DateTime date)
 		{
 			BodyMeasurements bod = null;
+			var settings = Settings.LoadSettings ();
 
 			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
 			{
-                bod = conn.Table<BodyMeasurements> ().Where(t => t.Date < date).OrderByDescending (t => t.Date).FirstOrDefault ();
+				bod = conn.Table<BodyMeasurements> ().Where(t => t.UserID == settings.CurrentUserID && t.Date < date).OrderByDescending (t => t.Date).FirstOrDefault ();
 			}
 
 			return bod;
@@ -70,11 +74,12 @@ namespace WeightTracker
 
         public static BodyMeasurements GetFirstMeasurement()
         {
-            BodyMeasurements bod = null;
+			BodyMeasurements bod = null;
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                bod = conn.Table<BodyMeasurements> ().OrderBy (t => t.ID).FirstOrDefault ();
+				bod = conn.Table<BodyMeasurements> ().Where(t => t.UserID == settings.CurrentUserID).OrderBy (t => t.ID).FirstOrDefault ();
             }
 
             return bod;
@@ -83,11 +88,12 @@ namespace WeightTracker
         public static Dictionary<string, double> GetWeightByDate()
         {
             var dict = new Dictionary<string, double>();
-            var data = new List<BodyMeasurements>();
+			var data = new List<BodyMeasurements>();
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+				data = conn.Table<BodyMeasurements>().Where(t => t.UserID == settings.CurrentUserID).OrderBy(t => t.Date).ToList();
             }
 
             foreach(var d in data)
@@ -101,11 +107,12 @@ namespace WeightTracker
         public static Dictionary<string, double> GetWeightByMonth()
         {
             var dict = new Dictionary<string, double>();
-            var data = new List<BodyMeasurements>();
+			var data = new List<BodyMeasurements>();
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+				data = conn.Table<BodyMeasurements>().Where(t => t.UserID == settings.CurrentUserID).OrderBy(t => t.Date).ToList();
             }
 
             var monthAndWeight = data.GroupBy(k => k.Date.Month).Select(lg => new { Month = lg.Key, Total = lg.Sum(t => t.TotalWeightChange)});
@@ -122,11 +129,12 @@ namespace WeightTracker
         public static Dictionary<string, double> GetSizeChangesByDate()
         {
             var dict = new Dictionary<string, double>();
-            var data = new List<BodyMeasurements>();
+			var data = new List<BodyMeasurements>();
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+				data = conn.Table<BodyMeasurements>().Where(t => t.UserID == settings.CurrentUserID).OrderBy(t => t.Date).ToList();
             }
 
             foreach(var d in data)
@@ -140,11 +148,12 @@ namespace WeightTracker
         public static Dictionary<string, double> GetSizeChangesByMonth()
         {
             var dict = new Dictionary<string, double>();
-            var data = new List<BodyMeasurements>();
+			var data = new List<BodyMeasurements>();
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+				data = conn.Table<BodyMeasurements>().Where(t => t.UserID == settings.CurrentUserID).OrderBy(t => t.Date).ToList();
             }
 
             var monthAndWeight = data.GroupBy(k => k.Date.Month).Select(lg => new { Month = lg.Key, Total = lg.Sum(t => t.TotalSizeChange)});
@@ -161,11 +170,12 @@ namespace WeightTracker
         public static Dictionary<string, double> GetTotalWeightByDate()
         {
             var dict = new Dictionary<string, double>();
-            var data = new List<BodyMeasurements>();
+			var data = new List<BodyMeasurements>();
+			var settings = Settings.LoadSettings ();
 
             using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
             {
-                data = conn.Table<BodyMeasurements>().OrderBy(t => t.Date).ToList();
+				data = conn.Table<BodyMeasurements>().Where(t => t.UserID == settings.CurrentUserID).OrderBy(t => t.Date).ToList();
             }
 
             foreach(var d in data)

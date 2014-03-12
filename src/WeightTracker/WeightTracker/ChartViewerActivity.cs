@@ -50,8 +50,6 @@ namespace WeightTracker
 
         private void BarChartDataChanged (object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var spinner = (Spinner)sender;
-
             switch(e.Position)
             {
                 case (int)ChartDataType.Weight_By_Month:

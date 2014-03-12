@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -113,6 +114,10 @@ namespace WeightTracker
 
 			Utilities.CreateApplicationDirectory ();
 			Utilities.CreateTables ();
+
+			var currentUser = Settings.LoadSettings ().GetCurrentUser ();
+			this.ActionBar.Title = "Measurements Tracker";
+			this.ActionBar.Subtitle = string.Format ("Current User: {0}", currentUser.UserName);
 			
             this.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
             var saveButton = FindViewById<Button>(Resource.Id.SaveButton);
@@ -227,6 +232,13 @@ namespace WeightTracker
                     Intent inte = new Intent(this, typeof(PrefsActivity));
                     StartActivity(inte);
                     break;
+				case Resource.Id.ActionViewUsers:
+					Intent userIntent = new Intent (this, typeof(UsersActivity));
+					StartActivity (userIntent);
+					break;
+				case Resource.Id.ActionSetCurrentUser:
+					ShowSetCurrentUser ();
+					break;
             }
 
             return base.OnOptionsItemSelected(item);
@@ -240,6 +252,49 @@ namespace WeightTracker
             }
             return null;
         }
+
+		private void ShowSetCurrentUser()
+		{
+			var builder = new AlertDialog.Builder (this);
+
+			LinearLayout layout = new LinearLayout (this);
+			layout.Orientation = Orientation.Horizontal;
+			TextView textView = new TextView (this);
+			textView.Text = "Select User Name:";
+			textView.SetWidth (200);
+
+			LinearLayout.LayoutParams margin = new LinearLayout.LayoutParams(RelativeLayout.LayoutParams.WrapContent,
+				RelativeLayout.LayoutParams.WrapContent);
+			margin.LeftMargin = 60;
+			textView.LayoutParameters = margin;
+
+			Spinner spinner = new Spinner (this);
+			var users = User.GetUsers ();
+			var userNames = users.Select (t => t.UserName).ToList();
+			var adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerDropDownItem, userNames);
+			spinner.Adapter = adapter;
+
+			layout.AddView (textView);
+			layout.AddView (spinner);
+
+			builder.SetView(layout)
+				.SetTitle ("Choose User")
+				.SetPositiveButton ("OK", (dialog, id) =>
+				{
+					int index = spinner.SelectedItemPosition;
+					var user = users[index];
+					var setting = Settings.LoadSettings();
+					setting.CurrentUserID = user.ID;
+					setting.Save();
+
+					this.ActionBar.Subtitle = string.Format ("Current User: {0}", user.UserName);
+					PopulateMeasurements();
+				})
+				.SetNegativeButton ("Cancel", (dialog, id) => { });
+
+			var alert = builder.Create ();
+			alert.Show ();
+		}
 
         private void ShowDatePicker (object sender, EventArgs e)
         {
@@ -321,6 +376,8 @@ namespace WeightTracker
         {
             var bodyMeas = new BodyMeasurements ();
             bodyMeas.Date = _currentDate;
+
+			bodyMeas.UserID = Settings.LoadSettings ().CurrentUserID;
 
             if (!string.IsNullOrEmpty (_weightTextBox.Text))
                 bodyMeas.Weight =  _weightTextBox.Text.AsDouble ();

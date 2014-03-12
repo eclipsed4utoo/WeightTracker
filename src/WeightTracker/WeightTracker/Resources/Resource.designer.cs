@@ -149,10 +149,13 @@ namespace WeightTracker
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int add_new = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int trash = 2130837505;
+			public const int Icon = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int trash = 2130837506;
 			
 			static Drawable()
 			{
@@ -176,11 +179,20 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090027
 			public const int AbsTextBox = 2131296295;
 			
-			// aapt resource value: 0x7f09004e
-			public const int ActionSettings = 2131296334;
+			// aapt resource value: 0x7f090050
+			public const int ActionSetCurrentUser = 2131296336;
+			
+			// aapt resource value: 0x7f090052
+			public const int ActionSettings = 2131296338;
+			
+			// aapt resource value: 0x7f090051
+			public const int ActionViewCharts = 2131296337;
+			
+			// aapt resource value: 0x7f09004f
+			public const int ActionViewUsers = 2131296335;
 			
 			// aapt resource value: 0x7f09004d
-			public const int ActionViewCharts = 2131296333;
+			public const int AddNewButton = 2131296333;
 			
 			// aapt resource value: 0x7f090002
 			public const int BarChartDataSpinner = 2131296258;
@@ -329,6 +341,9 @@ namespace WeightTracker
 			// aapt resource value: 0x7f090042
 			public const int TotalMeasurementChange = 2131296322;
 			
+			// aapt resource value: 0x7f09004e
+			public const int UsersListView = 2131296334;
+			
 			// aapt resource value: 0x7f090028
 			public const int WaistChange = 2131296296;
 			
@@ -428,6 +443,9 @@ namespace WeightTracker
 			
 			// aapt resource value: 0x7f030003
 			public const int MeasurementRow = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int ViewUsers = 2130903044;
 			
 			static Layout()
 			{

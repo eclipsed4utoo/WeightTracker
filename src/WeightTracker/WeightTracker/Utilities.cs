@@ -27,6 +27,18 @@ namespace WeightTracker
 			using (SQLiteConnection conn = new SQLiteConnection(Utilities.DatabasePath))
 			{
 				conn.CreateTable<BodyMeasurements> ();
+				conn.CreateTable<User> ();
+				conn.CreateTable<Settings> ();
+
+				if (conn.Table<User>().Count() == 0)
+				{
+					conn.Insert (User.CreateNewUser ("User 1"));
+				}
+
+				if (conn.Table<Settings>().Count() == 0)
+				{
+					conn.Insert (Settings.CreateNew (conn.Table<User> ().First ().ID));
+				}
 			}
 		}
 
